@@ -1,0 +1,72 @@
+[
+  {
+    "from": "MAA – Chennai Intl (MAA)",
+    "to": "JFK – New York JFK (JFK)",
+    "date": "2025-07-25",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "JFK – New York JFK (JFK)",
+    "to": "DEL – Indira Gandhi Intl (DEL)",
+    "date": "2025-07-20",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "DXB – Dubai Intl (DXB)",
+    "to": "JFK – New York JFK (JFK)",
+    "date": "2025-07-26",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "BLR – Kempegowda Intl (BLR)",
+    "to": "HYD – Rajiv Gandhi Intl (HYD)",
+    "date": "2025-07-31",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "BLR – Kempegowda Intl (BLR)",
+    "to": "HYD – Rajiv Gandhi Intl (HYD)",
+    "date": "2025-07-31",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "DEL – Indira Gandhi Intl (DEL)",
+    "to": "BLR – Kempegowda Intl (BLR)",
+    "date": "2025-07-20",
+    "passengers": "1",
+    "email": "swapnil.waghmare@haierindia.com"
+  },
+  {
+    "from": "BOM – Chhatrapati Shivaji Intl (BOM)",
+    "to": "MAA – Chennai Intl (MAA)",
+    "date": "2025-07-24",
+    "passengers": "1",
+    "email": "swapnil.waghmare@haierindia.com"
+  },
+  {
+    "from": "BOM – Chhatrapati Shivaji Intl (BOM)",
+    "to": "MAA – Chennai Intl (MAA)",
+    "date": "2025-07-24",
+    "passengers": "1",
+    "email": "swapnil.waghmare@haierindia.com"
+  },
+  {
+    "from": "DEL – Indira Gandhi Intl (DEL)",
+    "to": "BOM – Chhatrapati Shivaji Intl (BOM)",
+    "date": "2025-07-20",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  },
+  {
+    "from": "DEL – Indira Gandhi Intl (DEL)",
+    "to": "BOM – Chhatrapati Shivaji Intl (BOM)",
+    "date": "2025-07-20",
+    "passengers": "1",
+    "email": "kartik178kumeri@gmail.com"
+  }
+]

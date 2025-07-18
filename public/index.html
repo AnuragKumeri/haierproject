@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HaierGo – Book Your Flight</title>
+
+  <a href="login.html" class="primary" style="position: absolute; right: 20px; top: 20px;">Logout</a>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- Main styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header / hero -->
+  <header class="hero">
+    <h1 class="logo">HaierGo</h1>
+    <p class="tagline">Where will you take off today?</p>
+  </header>
+
+  <!-- Booking form -->
+  <main>
+    <form id="bookingForm" class="card">
+      <h2>Flight search</h2>
+
+      <div class="field">
+        <label for="from">Departure airport</label>
+        <input type="text" name="from" id="from" autocomplete="off" placeholder="e.g. DEL – New Delhi" required />
+        <ul id="fromSuggestions" class="suggestions"></ul>
+      </div>
+
+      <div class="field">
+        <label for="to">Arrival airport</label>
+        <input type="text" name="to" id="to" autocomplete="off" placeholder="e.g. BOM – Mumbai" required />
+        <ul id="toSuggestions" class="suggestions"></ul>
+      </div>
+
+      <div class="field half">
+        <label for="date">Departure date</label>
+        <input type="date" id="date" name="date" required />
+      </div>
+
+      <div class="field half">
+        <label for="passengers">Passengers</label>
+        <input type="number" id="passengers" name="passengers" min="1" max="20" value="1" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="e.g. you@example.com" required />
+      </div>
+
+      <button type="submit" class="primary">Request Flight tickets</button>
+    </form>
+
+    <div id="output"></div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set today's date as minimum
+      const dateInput = document.getElementById("date");
+      dateInput.min = new Date().toISOString().split("T")[0];
+
+      const airports = [
+        "DEL – Indira Gandhi Intl (DEL)",
+        "BOM – Chhatrapati Shivaji Intl (BOM)",
+        "BLR – Kempegowda Intl (BLR)",
+        "HYD – Rajiv Gandhi Intl (HYD)",
+        "MAA – Chennai Intl (MAA)",
+        "LHR – London Heathrow (LHR)",
+        "DXB – Dubai Intl (DXB)",
+        "JFK – New York JFK (JFK)"
+      ];
+
+      const fromInput = document.getElementById("from");
+      const toInput = document.getElementById("to");
+      const fromSuggestions = document.getElementById("fromSuggestions");
+      const toSuggestions = document.getElementById("toSuggestions");
+
+      function showSuggestions(input, suggestionBox, list) {
+        const value = input.value.toLowerCase();
+        suggestionBox.innerHTML = "";
+
+        if (!value) return;
+
+        const matches = list.filter(item => item.toLowerCase().includes(value));
+        matches.forEach(match => {
+          const li = document.createElement("li");
+          li.textContent = match;
+          li.addEventListener("click", () => {
+            input.value = match;
+            suggestionBox.innerHTML = "";
+          });
+          suggestionBox.appendChild(li);
+        });
+      }
+
+      fromInput.addEventListener("input", () =>
+        showSuggestions(fromInput, fromSuggestions, airports)
+      );
+      toInput.addEventListener("input", () =>
+        showSuggestions(toInput, toSuggestions, airports)
+      );
+
+      document.addEventListener("click", (e) => {
+        if (!fromSuggestions.contains(e.target) && e.target !== fromInput) {
+          fromSuggestions.innerHTML = "";
+        }
+        if (!toSuggestions.contains(e.target) && e.target !== toInput) {
+          toSuggestions.innerHTML = "";
+        }
+      });
+
+      // === Send booking request to backend ===
+      document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const from = fromInput.value.trim();
+        const to = toInput.value.trim();
+        const date = dateInput.value;
+        const passengers = document.getElementById("passengers").value;
+        const email = document.getElementById("email").value.trim();
+
+        try {
+          const response = await fetch("/api/send-request", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ from, to, date, passengers, email })
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            alert("Booking request sent successfully!");
+            window.location.href = "result.html"; // Optional
+          } else {
+            alert("Failed to send booking request.");
+          }
+        } catch (error) {
+          alert("An error occurred while sending the request.");
+          console.error(error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

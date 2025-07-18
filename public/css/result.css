@@ -1,0 +1,86 @@
+/* result.css */
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg, #e0f7fa, #e1f5fe);
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #01579b;
+  animation: fadeInDown 0.8s ease-in-out;
+}
+
+#results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.result {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease forwards;
+  transform: translateY(30px);
+  opacity: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 6px solid #0288d1;
+}
+
+.result:hover {
+  transform: translateY(0px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.result strong {
+  color: #0277bd;
+}
+
+.result a {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #0288d1;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.result a:hover {
+  background-color: #01579b;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

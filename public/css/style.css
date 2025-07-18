@@ -1,0 +1,208 @@
+/* ---------------
+   Reset & globals
+   --------------- */
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+   }
+   
+   body {
+     font-family: "Poppins", sans-serif;
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     background: linear-gradient(135deg, #3e5fff, #0bc9ff);
+     color: #fff;
+   }
+   
+   /* ---------------
+      Hero section
+      --------------- */
+   .hero {
+     text-align: center;
+     padding: 4rem 1rem 2rem;
+   }
+   
+   .logo {
+     font-size: clamp(2.5rem, 6vw, 4rem);
+     font-weight: 600;
+     letter-spacing: 1px;
+   }
+   
+   .tagline {
+     font-weight: 300;
+     font-size: 1.125rem;
+     opacity: 0.85;
+     margin-top: 0.25rem;
+   }
+   
+   /* ---------------
+      Card / form
+      --------------- */
+   main {
+     flex: 1;
+     display: flex;
+     justify-content: center;
+     align-items: flex-start;
+     padding: 2rem 1rem 4rem;
+   }
+   .suggestions {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: -1px;
+  padding: 0;
+  list-style: none;
+}
+
+.suggestions {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  z-index: 100;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.suggestions li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background: #f0f0f0;
+}
+
+.field {
+  position: relative;
+}
+
+   .card {
+     width: 100%;
+     max-width: 480px;
+     background: #ffffff;
+     color: #333;
+     border-radius: 1rem;
+     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+     padding: 2rem;
+     animation: floatIn 0.7s ease 0.1s both;
+   }
+   
+   .card h2 {
+     font-weight: 600;
+     margin-bottom: 1.25rem;
+     text-align: center;
+   }
+   
+   .field {
+     display: flex;
+     flex-direction: column;
+     margin-bottom: 1.25rem;
+   }
+   
+   .field.half {
+     width: 100%;
+   }
+   
+   @media (min-width: 480px) {
+     .field.half {
+       flex-direction: row;
+       align-items: center;
+       gap: 1rem;
+     }
+   
+     .field.half label {
+       width: 50%;
+     }
+   
+     .field.half input {
+       flex: 1;
+     }
+   }
+   
+   label {
+     font-size: 0.9rem;
+     margin-bottom: 0.4rem;
+   }
+   
+   input,
+   button {
+     font-family: inherit;
+   }
+   
+   input[type="text"],
+   input[type="date"],
+   input[type="number"] {
+     padding: 0.65rem 0.9rem;
+     border: 1px solid #ced4da;
+     border-radius: 0.5rem;
+     font-size: 1rem;
+     transition: border 0.2s ease;
+   }
+   
+   input:focus {
+     outline: none;
+     border-color: #3e5fff;
+   }
+   
+   button.primary {
+     width: 100%;
+     background: #3e5fff;
+     color: #fff;
+     padding: 0.8rem;
+     font-size: 1.05rem;
+     border: none;
+     border-radius: 0.5rem;
+     cursor: pointer;
+     transition: transform 0.18s ease, box-shadow 0.18s ease;
+   }
+   
+   button.primary:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 8px 15px rgba(62, 95, 255, 0.25);
+   }
+   
+   #output {
+     margin-top: 2rem;
+     text-align: center;
+     font-size: 1.1rem;
+     font-weight: 500;
+   }
+   
+   /* ---------------
+      Animations
+      --------------- */
+   @keyframes floatIn {
+     from {
+       transform: translateY(25px);
+       opacity: 0;
+     }
+     to {
+       transform: translateY(0);
+       opacity: 1;
+     }
+   }
+   

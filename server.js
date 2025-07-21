@@ -43,32 +43,26 @@ app.post("/api/send-request", (req, res) => {
   };
 
   let requests = [];
-  let pastRequests = [];
 
   try {
     if (fs.existsSync(REQUESTS_FILE)) {
       requests = JSON.parse(fs.readFileSync(REQUESTS_FILE, "utf8"));
     }
-    if (fs.existsSync(PAST_REQUESTS_FILE)) {
-      pastRequests = JSON.parse(fs.readFileSync(PAST_REQUESTS_FILE, "utf8"));
-    }
   } catch (err) {
-    console.error("Error reading data files:", err);
-    return res.status(500).json({ success: false, message: "Server error while reading files." });
+    console.error("Error reading requests file:", err);
+    return res.status(500).json({ success: false, message: "Server error while reading requests." });
   }
 
   requests.push(newRequest);
-  pastRequests.push(newRequest);
 
   try {
     fs.writeFileSync(REQUESTS_FILE, JSON.stringify(requests, null, 2));
-    fs.writeFileSync(PAST_REQUESTS_FILE, JSON.stringify(pastRequests, null, 2));
   } catch (err) {
-    console.error("Error writing to data files:", err);
+    console.error("Error writing to requests file:", err);
     return res.status(500).json({ success: false, message: "Server error while saving request." });
   }
 
-  const passengerList = passengerDetails && passengerDetails.length
+  const passengerList = Array.isArray(passengerDetails)
     ? passengerDetails.map((p, i) => `  ${i + 1}. ${p.name}, Age: ${p.age}`).join("\n")
     : "  (No passenger details)";
 

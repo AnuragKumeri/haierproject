@@ -1,15 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Plant Head – Flight Requests</title>
   <link rel="stylesheet" href="/css/plant-head.css" />
   <a href="admin_login.html" class="primary" style="position: absolute; right: 20px; top: 20px;">Logout</a>
 </head>
+
 <body>
-  <h1>Booking Requests Pending For Approval: </h1>
-  <div id="requestsContainer"></div>
-  <script src="/js/plant-head.js"></script>
+  <h1>Book a Flight</h1>
+  <form id="bookingForm" class="card">
+    <label for="from">From:</label>
+    <input type="text" id="from" required><br>
+
+    <label for="to">To:</label>
+    <input type="text" id="to" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" required><br>
+
+    <label for="passengers">Number of Passengers:</label>
+    <input type="number" id="passengers" value="1" min="1" required><br>
+
+    <div id="passengerDetailsContainer"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br>
+
+    <button type="submit">Submit Request</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const passengerInput = document.getElementById("passengers");
+      const container = document.getElementById("passengerDetailsContainer");
+
+      function updatePassengerFields() {
+        const count = parseInt(passengerInput.value) || 1;
+        container.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+          const div = document.createElement("div");
+          div.innerHTML = `
+          <label>Passenger ${i + 1} Name:</label>
+          <input type="text" id="passengerName${i}" required>
+          <label>Age:</label>
+          <input type="number" id="passengerAge${i}" min="1" required><br>
+        `;
+          container.appendChild(div);
+        }
+      }
+
+      updatePassengerFields();
+      passengerInput.addEventListener("input", updatePassengerFields);
+
+      document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const from = document.getElementById("from").value.trim();
+        const to = document.getElementById("to").value.trim();
+        const date = document.getElementById("date").value;
+        const passengers = parseInt(passengerInput.value);
+        const email = document.getElementById("email").value.trim();
+
+        const passengerDetails = [];
+        for (let i = 0; i < passengers; i++) {
+          const name = document.getElementById(`passengerName${i}`)?.value.trim();
+          const age = document.getElementById(`passengerAge${i}`)?.value.trim();
+          if (name && age) passengerDetails.push({ name, age });
+        }
+
+        try {
+          const res = await fetch("/api/send-request", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ from, to, date, passengers, email, passengerDetails })
+          });
+
+          if (res.ok) {
+            alert("Booking request submitted successfully!");
+            window.location.href = "result.html";
+          } else {
+            alert("Submission failed. Try again.");
+          }
+        } catch (err) {
+          alert("Server error occurred.");
+          console.error(err);
+        }
+      });
+    });
+  </script>
+
 </body>
+
 </html>

@@ -15,12 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
     requests.forEach((req, index) => {
       const div = document.createElement("div");
       div.classList.add("card");
+
+      let passengerInfo = "";
+      if (Array.isArray(req.passengerDetails)) {
+        passengerInfo = req.passengerDetails.map((p, i) =>
+          `<li>${i + 1}. ${p.name} (Age: ${p.age})</li>`).join("");
+      }
+
       div.innerHTML = `
         <p><strong>From:</strong> ${req.from}</p>
         <p><strong>To:</strong> ${req.to}</p>
         <p><strong>Date:</strong> ${req.date}</p>
         <p><strong>Passengers:</strong> ${req.passengers}</p>
         <p><strong>Email:</strong> ${req.email}</p>
+        <p><strong>Passenger Details:</strong></p>
+        <ul>${passengerInfo}</ul>
         <button class="approve">Approve</button>
         <button class="dismiss">Dismiss</button>
       `;
@@ -46,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const result = await res.json();
     alert(result.message);
-    fetchRequests(); // Refresh list
+    fetchRequests();
   }
 
   fetchRequests();
